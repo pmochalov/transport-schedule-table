@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./store.ts";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Station } from "./components/Station.tsx";
 
 const router = createBrowserRouter([
     {
@@ -12,8 +13,8 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
             {
-                path: "hello1",
-                element: <>111</>,
+                path: "station/:stationId",
+                element: <Station />,
             },
             {
                 path: "hello2",
