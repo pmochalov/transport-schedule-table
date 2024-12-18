@@ -1,0 +1,101 @@
+{
+    "pagination": {
+        "total": 4,
+        "limit": 100,
+        "offset": 0
+    },
+    "stations": [
+        {
+            "type": "station",
+            "title": "Внуково",
+            "short_title": null,
+            "popular_title": null,
+            "code": "s9600215",
+            "lat": 55.605771,
+            "lng": 37.288147,
+            "station_type": "airport",
+            "station_type_name": "аэропорт",
+            "transport_type": "plane",
+            "distance": 25.988700335549932,
+            "majority": 2,
+            "type_choices": {
+                "suburban": {
+                    "desktop_url": "https://rasp.yandex.ru/station/9600215/suburban",
+                    "touch_url": "https://t.rasp.yandex.ru/station/9600215/suburban"
+                },
+                "tablo": {
+                    "desktop_url": "https://rasp.yandex.ru/station/9600215/tablo",
+                    "touch_url": "https://t.rasp.yandex.ru/station/9600215/tablo"
+                }
+            }
+        },
+        {
+            "type": "station",
+            "title": "Шереметьево",
+            "short_title": null,
+            "popular_title": null,
+            "code": "s9600213",
+            "lat": 55.963951,
+            "lng": 37.41689,
+            "station_type": "airport",
+            "station_type_name": "аэропорт",
+            "transport_type": "plane",
+            "distance": 27.181699912975816,
+            "majority": 2,
+            "type_choices": {
+                "tablo": {
+                    "desktop_url": "https://rasp.yandex.ru/station/9600213/tablo",
+                    "touch_url": "https://t.rasp.yandex.ru/station/9600213/tablo"
+                }
+            }
+        },
+        {
+            "type": "station",
+            "title": "Жуковский",
+            "short_title": null,
+            "popular_title": null,
+            "code": "s9850865",
+            "lat": 55.561684391375,
+            "lng": 38.1176998796232,
+            "station_type": "airport",
+            "station_type_name": "аэропорт",
+            "transport_type": "plane",
+            "distance": 37.53704356004353,
+            "majority": 2,
+            "type_choices": {
+                "tablo": {
+                    "desktop_url": "https://rasp.yandex.ru/station/9850865/tablo",
+                    "touch_url": "https://t.rasp.yandex.ru/station/9850865/tablo"
+                }
+            }
+        },
+        {
+            "type": "station",
+            "title": "Домодедово",
+            "short_title": null,
+            "popular_title": null,
+            "code": "s9600216",
+            "lat": 55.415133,
+            "lng": 37.896818,
+            "station_type": "airport",
+            "station_type_name": "аэропорт",
+            "transport_type": "plane",
+            "distance": 40.88306430042007,
+            "majority": 2,
+            "type_choices": {
+                "suburban": {
+                    "desktop_url": "https://rasp.yandex.ru/station/9600216/suburban",
+                    "touch_url": "https://t.rasp.yandex.ru/station/9600216/suburban"
+                },
+                "aeroex": {
+                    "desktop_url": "https://rasp.yandex.ru/station/9600216/aeroex",
+                    "touch_url": "https://t.rasp.yandex.ru/station/9600216/aeroex"
+                },
+                "tablo": {
+                    "desktop_url": "https://rasp.yandex.ru/station/9600216/tablo",
+                    "touch_url": "https://t.rasp.yandex.ru/station/9600216/tablo"
+                }
+            }
+        }
+    ]
+}
