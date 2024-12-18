@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import usersReducer from './slices/usersSlice'
+import scheduleReducer from './slices/schedulescheduleSlice'
 
 export const store = configureStore({
     reducer: {
-        users: usersReducer,
+        schedule: scheduleReducer,
     },
 })
 
