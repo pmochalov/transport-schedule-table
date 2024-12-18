@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import scheduleReducer from './slices/schedulescheduleSlice'
+import threadReducer from './slices/threadSlice'
 
 export const store = configureStore({
     reducer: {
         schedule: scheduleReducer,
+        thread: threadReducer,
     },
 })
 

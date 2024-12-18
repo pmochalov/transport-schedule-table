@@ -18,7 +18,7 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<App />} errorElement={<ErrorPage />}>
             <Route path='station/:stationId' element={<Station />} />
-            <Route path='station/:uid' element={<Thread />} />
+            <Route path='thread/:uid' element={<Thread />} />
         </Route>
     )
 );

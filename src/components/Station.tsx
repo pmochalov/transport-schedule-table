@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
     fetchSchedule,
@@ -40,7 +40,11 @@ const Station: React.FC = () => {
             <h1>Расписание по станции {data.station.title}</h1>
             <div>
                 {data.schedule.map((item) => (
-                    <p>{item.thread.title}</p>
+                    <p>
+                        <Link to={`/thread/${item.thread.uid}`}>
+                            {item.thread.title} {item.thread.uid}
+                        </Link>
+                    </p>
                 ))}
             </div>
         </>

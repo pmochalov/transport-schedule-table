@@ -40,7 +40,7 @@ const initialState: Initial = {
 export const fetchSchedule = createAsyncThunk<Schedule, { stationId: string }, {}>(
     'schedule/fetchSchedule',
     async ({ stationId }: { stationId: string }) => {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}welcome/schedule`, {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}schedule`, {
             station: stationId,
             date: "2024-12-18",
         });

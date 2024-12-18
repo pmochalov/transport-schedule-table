@@ -14,4 +14,7 @@ export type Station = {
 export type Thread = {
     title: string;
     uid: string;
+    number: string;
+    short_title: string;
+    stops: Station[]
 }
