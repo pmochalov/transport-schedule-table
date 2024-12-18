@@ -55,20 +55,7 @@ const App: React.FC = () => {
             <Content style={contentStyle}>
                 <Row>
                     <Col span={24}>
-                        <Flex vertical={true} gap={16} align={"center"}>
-                            <Outlet />
-                            {/* <div>
-                                <TransportSelector />
-                            </div> */}
-                            {/* <Space size={"small"}>
-                                <Input size='large' placeholder='Откуда' />
-                                <Input size='large' placeholder='Куда' />
-                                <DatePicker size='large' placeholder='Когда' />
-                                <Button type='primary' size='large'>
-                                    Найти
-                                </Button>
-                            </Space> */}
-                        </Flex>
+                        <Outlet />
                     </Col>
                 </Row>
             </Content>

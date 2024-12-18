@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Layout } from "antd";
+import { Link } from "react-router-dom";
 
 const { Header: H } = Layout;
 
@@ -15,7 +16,9 @@ const headerStyle: React.CSSProperties = {
 const Header: React.FC = () => {
     return (
         <H style={headerStyle}>
-            Расписание пригородного и междугородного транспорта Архангельска
+            <Link to='/'>
+                Расписание пригородного и междугородного транспорта Архангельска
+            </Link>
         </H>
     );
 };

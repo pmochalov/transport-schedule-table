@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 const Station: React.FC = () => {
     let { stationId } = useParams();
-    return <>Расписание по станции {stationId}</>;
+    return <h1>Расписание по станции {stationId}</h1>;
 };
 
 export { Station };
