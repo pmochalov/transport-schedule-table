@@ -13,7 +13,11 @@ const headerStyle: React.CSSProperties = {
 };
 
 const Header: React.FC = () => {
-    return <H style={headerStyle}>Яндекс.Расписания API</H>;
+    return (
+        <H style={headerStyle}>
+            Расписание пригородного и междугородного транспорта Архангельска
+        </H>
+    );
 };
 
 export { Header };

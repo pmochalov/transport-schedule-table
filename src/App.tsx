@@ -1,7 +1,8 @@
 import React from "react";
-import { Layout, Col, Row, Input, DatePicker, Space, Button, Flex } from "antd";
+import { Layout, Col, Row, Flex } from "antd";
 import { Header } from "./components/Header";
-import { TransportSelector } from "./components/TransportSelector(temp)";
+import { Outlet } from "react-router-dom";
+
 // import { useAppDispatch, useAppSelector } from "./hooks";
 // import { fetchUsers, resetUsersState } from "./slices/usersSlice";
 // import { RootState } from "./store";
@@ -55,10 +56,7 @@ const App: React.FC = () => {
                 <Row>
                     <Col span={24}>
                         <Flex vertical={true} gap={16} align={"center"}>
-                            <h1>
-                                Расписание пригородного и междугородного
-                                транспорта Архангельска
-                            </h1>
+                            <Outlet />
                             {/* <div>
                                 <TransportSelector />
                             </div> */}
