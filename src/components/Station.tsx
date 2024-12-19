@@ -10,7 +10,11 @@ import { RootState } from "../store";
 import { List } from "antd";
 
 const Station: React.FC = () => {
-    let { stationId } = useParams();
+    const [eventMenu, setEventMenu] = React.useState<"departure" | "arrival">(
+        "departure"
+    );
+
+    const { stationId } = useParams();
     const [searchParams] = useSearchParams();
 
     const dispatch = useAppDispatch();
@@ -25,6 +29,12 @@ const Station: React.FC = () => {
 
         if (stationId) {
             dispatch(fetchSchedule({ stationId, date, event }));
+        }
+
+        if (event && (event === "departure" || event === "arrival")) {
+            setEventMenu(event);
+        } else {
+            setEventMenu("departure");
         }
 
         return () => {
@@ -46,6 +56,7 @@ const Station: React.FC = () => {
                 Расписание &laquo;{data.station.title}&raquo; (
                 {data.station.station_type_name})
             </h1>
+            <div>{eventMenu}</div>
             <p>
                 Дата: {data.date} / {data.event}
             </p>
