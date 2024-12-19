@@ -1,11 +1,7 @@
 import React from "react";
-import { Layout, Col, Row, Flex } from "antd";
+import { Layout, Col, Row } from "antd";
 import { Header } from "./components/Header";
 import { Outlet } from "react-router-dom";
-
-// import { useAppDispatch, useAppSelector } from "./hooks";
-// import { fetchUsers, resetUsersState } from "./slices/usersSlice";
-// import { RootState } from "./store";
 
 const { Content } = Layout;
 
@@ -23,32 +19,6 @@ const contentStyle: React.CSSProperties = {
 };
 
 const AppLayout: React.FC = () => {
-    // const dispatch = useAppDispatch();
-
-    // const {
-    //     entities: users,
-    //     loading,
-    //     error,
-    // } = useAppSelector((state: RootState) => state.users);
-
-    // React.useEffect(() => {
-    //     dispatch(fetchUsers());
-    // }, [dispatch]);
-
-    // React.useEffect(() => {
-    //     return () => {
-    //         dispatch(resetUsersState());
-    //     };
-    // }, []);
-
-    // if (loading) {
-    //     return <div>Загрузка...</div>;
-    // }
-
-    // if (error) {
-    //     return <div>Ошибка: {error}</div>;
-    // }
-
     return (
         <Layout style={layoutStyle}>
             <Header />
