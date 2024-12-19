@@ -8,6 +8,7 @@ type ThreadItem = {
 
 type Schedule = {
     date: string;
+    event: string;
     station: Station;
     schedule: ThreadItem[]
 }
@@ -18,11 +19,18 @@ type Initial = {
     data: Schedule;
 }
 
+type FetchParams = {
+    stationId: string;
+    date: null | string;
+    event: null | string;
+}
+
 const initialState: Initial = {
     loading: false,
     error: null,
     data: {
         date: '',
+        event: '',
         station: {
             type: "",
             title: "",
@@ -37,12 +45,13 @@ const initialState: Initial = {
     }
 };
 
-export const fetchSchedule = createAsyncThunk<Schedule, { stationId: string }, {}>(
+export const fetchSchedule = createAsyncThunk<Schedule, FetchParams, {}>(
     'schedule/fetchSchedule',
-    async ({ stationId }: { stationId: string }) => {
+    async ({ stationId, date, event }: FetchParams) => {
         const response = await axios.post(`${import.meta.env.VITE_API_URL}schedule`, {
             station: stationId,
-            date: "2024-12-18",
+            date,
+            event
         });
 
         if (response.status !== 200) {
