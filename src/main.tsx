@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { App } from "./App.tsx";
+import { AppLayout } from "./AppLayout.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store.ts";
 
@@ -13,10 +13,12 @@ import {
 import { Station } from "./components/Station.tsx";
 import { Thread } from "./components/Thread.tsx";
 import { ErrorPage } from "./components/ErrorPage.tsx";
+import { Home } from "./Home.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path='/' element={<App />} errorElement={<ErrorPage />}>
+        <Route path='/' element={<AppLayout />} errorElement={<ErrorPage />}>
+            <Route index element={<Home />} />
             <Route path='station/:stationId' element={<Station />} />
             <Route path='thread/:uid' element={<Thread />} />
         </Route>

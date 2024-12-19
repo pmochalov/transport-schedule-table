@@ -22,7 +22,7 @@ const contentStyle: React.CSSProperties = {
     backgroundColor: "#fff",
 };
 
-const App: React.FC = () => {
+const AppLayout: React.FC = () => {
     // const dispatch = useAppDispatch();
 
     // const {
@@ -63,4 +63,4 @@ const App: React.FC = () => {
     );
 };
 
-export { App };
+export { AppLayout };
