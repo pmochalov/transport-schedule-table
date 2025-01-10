@@ -33,7 +33,7 @@ const Home: React.FC = () => {
             <h1>Станции Архангельска</h1>
             <ul>
                 {data.stations.map((station) => (
-                    <li>
+                    <li key={station.code}>
                         <Link to={`/station/${station.code}`}>
                             {station.title} ({station.station_type_name})
                         </Link>
