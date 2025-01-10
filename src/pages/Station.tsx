@@ -7,6 +7,7 @@ import {
 } from "../slices/schedulescheduleSlice";
 
 import { RootState } from "../store";
+import type { DatePickerProps } from "antd";
 import { DatePicker, List, Radio, RadioChangeEvent } from "antd";
 
 const Station: React.FC = () => {
@@ -17,6 +18,7 @@ const Station: React.FC = () => {
     const { stationId } = useParams<string>();
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const paramsObject = Object.fromEntries(searchParams.entries());
 
     const dispatch = useAppDispatch();
 
@@ -26,15 +28,14 @@ const Station: React.FC = () => {
 
     const handleChangeEvent = (e: RadioChangeEvent) => {
         setEvent(e.target.value);
-        setSearchParams({ event: e.target.value });
+        setSearchParams({ ...paramsObject, event: e.target.value });
     };
 
-    const handleChangeDate = (date: Date | null, dateString: string | null) => {
-        if (dateString) {
-            console.log(1, date);
-            console.log(dateString);
-            setSearchParams({ date: dateString });
-        }
+    const handleChangeDate: DatePickerProps["onChange"] = (
+        _date,
+        dateString
+    ) => {
+        setSearchParams({ ...paramsObject, date: dateString });
     };
 
     React.useEffect(() => {
@@ -58,6 +59,10 @@ const Station: React.FC = () => {
             dispatch(resetScheduleState());
         };
     }, [dispatch, stationId]);
+
+    React.useEffect(() => {
+        console.log("paramsObject: ", paramsObject);
+    }, [searchParams]);
 
     if (loading) {
         return <div>Загрузка...</div>;
