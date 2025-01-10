@@ -1,7 +1,7 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "./hooks";
-import { RootState } from "./store";
-import { fetchStations, resetStationsState } from "./slices/stationsSlice";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { RootState } from "../store";
+import { fetchStations, resetStationsState } from "../slices/stationsSlice";
 import { Link } from "react-router-dom";
 // import { Layout, Col, Row, Flex } from "antd";
 

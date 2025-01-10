@@ -11,10 +11,10 @@ import {
     Route,
 } from "react-router-dom";
 
-import { Station } from "./components/Station.tsx";
-import { Thread } from "./components/Thread.tsx";
-import { ErrorPage } from "./components/ErrorPage.tsx";
-import { Home } from "./Home.tsx";
+import { Station } from "./pages/Station.tsx";
+import { Thread } from "./pages/Thread.tsx";
+import { ErrorPage } from "./pages/ErrorPage.tsx";
+import { Home } from "./pages/Home.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
