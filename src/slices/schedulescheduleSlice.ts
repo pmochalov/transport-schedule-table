@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
-import { Station, Thread } from '../types';
+import { Event, EventDate, Station, Thread } from '../types';
 
 type ThreadItem = {
     thread: Thread
@@ -21,8 +21,8 @@ type Initial = {
 
 type FetchParams = {
     stationId: undefined | string;
-    date?: null | string;
-    event?: null | 'departure' | 'arrival';
+    date?: EventDate;
+    event?: null | Event;
 }
 
 const initialState: Initial = {

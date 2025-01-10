@@ -9,12 +9,11 @@ import {
 import { RootState } from "../store";
 import type { DatePickerProps } from "antd";
 import { DatePicker, List, Radio, RadioChangeEvent, Button } from "antd";
+import useStationParams from "../hooks/useStationParams";
 
 const Station: React.FC = () => {
     const { stationId } = useParams<string>();
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    const paramsObject = Object.fromEntries(searchParams.entries());
+    const { params, setSearchParams } = useStationParams();
 
     const { data, loading, error } = useAppSelector(
         (state: RootState) => state.schedule
@@ -23,18 +22,18 @@ const Station: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const handleChangeEvent = (e: RadioChangeEvent) => {
-        setSearchParams({ ...paramsObject, event: e.target.value });
+        setSearchParams({ ...params, event: e.target.value });
     };
 
     const handleChangeDate: DatePickerProps["onChange"] = (
         _date,
         dateString
     ) => {
-        setSearchParams({ ...paramsObject, date: dateString });
+        setSearchParams({ ...params, date: dateString });
     };
 
     const handleSearch = () => {
-        dispatch(fetchSchedule({ ...paramsObject, stationId }));
+        dispatch(fetchSchedule({ ...params, stationId }));
     };
 
     React.useEffect(() => {
@@ -42,7 +41,7 @@ const Station: React.FC = () => {
             return;
         }
 
-        dispatch(fetchSchedule({ ...paramsObject, stationId }));
+        dispatch(fetchSchedule({ ...params, stationId }));
 
         return () => {
             dispatch(resetScheduleState());
@@ -65,14 +64,19 @@ const Station: React.FC = () => {
             </h1>
             <div>
                 <Radio.Group
-                    value={event}
-                    size='large'
+                    value={params.event}
                     onChange={handleChangeEvent}
+                    size='large'
                 >
                     <Radio.Button value='departure'>Отправление</Radio.Button>
                     <Radio.Button value='arrival'>Прибытие</Radio.Button>
                 </Radio.Group>
-                <DatePicker onChange={handleChangeDate} size='large' />
+                <DatePicker
+                    // value={params.date}
+                    onChange={handleChangeDate}
+                    size='large'
+                    placeholder='Дата'
+                />
                 <Button onClick={handleSearch} type='primary' size='large'>
                     Найти
                 </Button>

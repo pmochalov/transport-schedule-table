@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 import { Station } from '../types';
 
-
 type Stations = {
     stations: Station[]
 }

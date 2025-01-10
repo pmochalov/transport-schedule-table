@@ -1,5 +1,13 @@
 export type Transport = "all" | "plane" | "train" | "bus";
 
+export type Event = "arrival" | "departure";
+export type EventDate = null | string; // дата отправления/прибытия
+
+// export type SearchParams = {
+//     event: Event;
+//     date: EventDate;
+// }
+
 export type Station = {
     type: string;
     title: string;
