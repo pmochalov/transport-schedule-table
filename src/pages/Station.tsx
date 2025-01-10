@@ -87,7 +87,7 @@ const Station: React.FC = () => {
                     <Radio.Button value='departure'>Отправление</Radio.Button>
                     <Radio.Button value='arrival'>Прибытие</Radio.Button>
                 </Radio.Group>
-                <DatePicker onChange={handleChangeDate} />
+                <DatePicker onChange={handleChangeDate} size='large' />
             </div>
             <p>
                 Дата: {data.date} / {data.event}
