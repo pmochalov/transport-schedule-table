@@ -21,8 +21,8 @@ type Initial = {
 
 type FetchParams = {
     stationId: string;
-    date: null | string;
-    event: null | string;
+    date?: null | string;
+    event?: null | 'departure' | 'arrival';
 }
 
 const initialState: Initial = {

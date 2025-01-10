@@ -7,15 +7,16 @@ import {
 } from "../slices/schedulescheduleSlice";
 
 import { RootState } from "../store";
-import { List } from "antd";
+import { DatePicker, List, Radio, RadioChangeEvent } from "antd";
 
 const Station: React.FC = () => {
-    const [eventMenu, setEventMenu] = React.useState<"departure" | "arrival">(
+    const [event, setEvent] = React.useState<"departure" | "arrival">(
         "departure"
     );
 
-    const { stationId } = useParams();
-    const [searchParams] = useSearchParams();
+    const { stationId } = useParams<string>();
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const dispatch = useAppDispatch();
 
@@ -23,18 +24,34 @@ const Station: React.FC = () => {
         (state: RootState) => state.schedule
     );
 
+    const handleChangeEvent = (e: RadioChangeEvent) => {
+        setEvent(e.target.value);
+        setSearchParams({ event: e.target.value });
+    };
+
+    const handleChangeDate = (date: Date | null, dateString: string | null) => {
+        if (dateString) {
+            console.log(1, date);
+            console.log(dateString);
+            setSearchParams({ date: dateString });
+        }
+    };
+
     React.useEffect(() => {
         const date = searchParams.get("date");
-        const event = searchParams.get("event");
+        const eventParam = searchParams.get("event");
+
+        if (
+            eventParam &&
+            (eventParam === "departure" || eventParam === "arrival")
+        ) {
+            setEvent(eventParam);
+        } else {
+            setEvent("departure");
+        }
 
         if (stationId) {
             dispatch(fetchSchedule({ stationId, date, event }));
-        }
-
-        if (event && (event === "departure" || event === "arrival")) {
-            setEventMenu(event);
-        } else {
-            setEventMenu("departure");
         }
 
         return () => {
@@ -56,7 +73,17 @@ const Station: React.FC = () => {
                 Расписание &laquo;{data.station.title}&raquo; (
                 {data.station.station_type_name})
             </h1>
-            <div>{eventMenu}</div>
+            <div>
+                <Radio.Group
+                    value={event}
+                    size='large'
+                    onChange={handleChangeEvent}
+                >
+                    <Radio.Button value='departure'>Отправление</Radio.Button>
+                    <Radio.Button value='arrival'>Прибытие</Radio.Button>
+                </Radio.Group>
+                <DatePicker onChange={handleChangeDate} />
+            </div>
             <p>
                 Дата: {data.date} / {data.event}
             </p>
