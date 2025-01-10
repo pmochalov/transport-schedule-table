@@ -8,26 +8,21 @@ import {
 
 import { RootState } from "../store";
 import type { DatePickerProps } from "antd";
-import { DatePicker, List, Radio, RadioChangeEvent } from "antd";
+import { DatePicker, List, Radio, RadioChangeEvent, Button } from "antd";
 
 const Station: React.FC = () => {
-    const [event, setEvent] = React.useState<"departure" | "arrival">(
-        "departure"
-    );
-
     const { stationId } = useParams<string>();
 
     const [searchParams, setSearchParams] = useSearchParams();
     const paramsObject = Object.fromEntries(searchParams.entries());
 
-    const dispatch = useAppDispatch();
-
     const { data, loading, error } = useAppSelector(
         (state: RootState) => state.schedule
     );
 
+    const dispatch = useAppDispatch();
+
     const handleChangeEvent = (e: RadioChangeEvent) => {
-        setEvent(e.target.value);
         setSearchParams({ ...paramsObject, event: e.target.value });
     };
 
@@ -38,31 +33,21 @@ const Station: React.FC = () => {
         setSearchParams({ ...paramsObject, date: dateString });
     };
 
+    const handleSearch = () => {
+        dispatch(fetchSchedule({ ...paramsObject, stationId }));
+    };
+
     React.useEffect(() => {
-        const date = searchParams.get("date");
-        const eventParam = searchParams.get("event");
-
-        if (
-            eventParam &&
-            (eventParam === "departure" || eventParam === "arrival")
-        ) {
-            setEvent(eventParam);
-        } else {
-            setEvent("departure");
+        if (!stationId) {
+            return;
         }
 
-        if (stationId) {
-            dispatch(fetchSchedule({ stationId, date, event }));
-        }
+        dispatch(fetchSchedule({ ...paramsObject, stationId }));
 
         return () => {
             dispatch(resetScheduleState());
         };
     }, [dispatch, stationId]);
-
-    React.useEffect(() => {
-        console.log("paramsObject: ", paramsObject);
-    }, [searchParams]);
 
     if (loading) {
         return <div>Загрузка...</div>;
@@ -88,6 +73,9 @@ const Station: React.FC = () => {
                     <Radio.Button value='arrival'>Прибытие</Radio.Button>
                 </Radio.Group>
                 <DatePicker onChange={handleChangeDate} size='large' />
+                <Button onClick={handleSearch} type='primary' size='large'>
+                    Найти
+                </Button>
             </div>
             <p>
                 Дата: {data.date} / {data.event}

@@ -20,7 +20,7 @@ type Initial = {
 }
 
 type FetchParams = {
-    stationId: string;
+    stationId: undefined | string;
     date?: null | string;
     event?: null | 'departure' | 'arrival';
 }
