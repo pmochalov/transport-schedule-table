@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { Event, EventDate } from "../types";
+import dayjs from "dayjs";
 
 const useStationParams = (): any => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -11,7 +12,7 @@ const useStationParams = (): any => {
             ? (paramsObj.event as Event)
             : "departure";
 
-    const date: EventDate = paramsObj.date ?? "";
+    const date: EventDate = paramsObj.date ?? dayjs().format("YYYY-MM-DD");
 
     return {
         setSearchParams,

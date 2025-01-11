@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link, useParams } from "react-router-dom";
+import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
     fetchSchedule,
@@ -18,6 +19,8 @@ import {
     Col,
 } from "antd";
 import useStationParams from "../hooks/useStationParams";
+
+const dateFormat = "YYYY-MM-DD";
 
 const Station: React.FC = () => {
     const { stationId } = useParams<string>();
@@ -56,10 +59,6 @@ const Station: React.FC = () => {
         };
     }, [dispatch, stationId]);
 
-    if (loading) {
-        return <div>Загрузка...</div>;
-    }
-
     if (error) {
         return <div>Ошибка: {error}</div>;
     }
@@ -76,6 +75,7 @@ const Station: React.FC = () => {
                         value={params.event}
                         onChange={handleChangeEvent}
                         size='large'
+                        disabled={loading}
                     >
                         <Radio.Button value='departure'>
                             Отправление
@@ -88,17 +88,22 @@ const Station: React.FC = () => {
                         onChange={handleChangeDate}
                         size='large'
                         placeholder='Дата'
+                        defaultValue={dayjs(params.date, dateFormat)}
+                        format={dateFormat}
+                        disabled={loading}
                     />
                 </Col>
                 <Col>
-                    <Button onClick={handleSearch} type='primary' size='large'>
+                    <Button
+                        onClick={handleSearch}
+                        disabled={loading}
+                        type='primary'
+                        size='large'
+                    >
                         Найти
                     </Button>
                 </Col>
             </Row>
-            <p>
-                Дата: {data.date} / {data.event}
-            </p>
             <List
                 bordered
                 dataSource={data.schedule.map((item) => (
