@@ -3,7 +3,10 @@ import axios from 'axios';
 import { Event, EventDate, Station, Thread } from '../types';
 
 type ThreadItem = {
-    thread: Thread
+    thread: Thread;
+    days: string;
+    arrival: string | null;
+    departure: string | null;
 }
 
 type Schedule = {

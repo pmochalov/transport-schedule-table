@@ -1,13 +1,14 @@
 import * as React from "react";
 import { Link, useParams } from "react-router-dom";
+import { RootState } from "../store";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
     fetchSchedule,
     resetScheduleState,
 } from "../slices/schedulescheduleSlice";
+import useStationParams from "../hooks/useStationParams";
 
-import { RootState } from "../store";
 import type { DatePickerProps } from "antd";
 import {
     DatePicker,
@@ -20,8 +21,9 @@ import {
     Card,
     Spin,
     Space,
+    Typography,
 } from "antd";
-import useStationParams from "../hooks/useStationParams";
+const { Text } = Typography;
 
 const dateFormat = "YYYY-MM-DD";
 
@@ -69,7 +71,7 @@ const Station: React.FC = () => {
     return (
         <>
             <h1>
-                Расписание &laquo;{data.station.title}&raquo; (
+                Расписание: &laquo;{data.station.title}&raquo; (
                 {data.station.station_type_name})
             </h1>
             <Card>
@@ -121,15 +123,34 @@ const Station: React.FC = () => {
             </Card>
 
             <List
-                bordered
-                dataSource={data.schedule.map((item) => (
-                    <p>
-                        <Link to={`/thread/${item.thread.uid}`}>
-                            {item.thread.title} {item.thread.uid}
-                        </Link>
-                    </p>
-                ))}
-                renderItem={(item) => <List.Item>{item}</List.Item>}
+                bordered={true}
+                dataSource={data.schedule.map((item) => {
+                    const time = dayjs(item.departure || item.arrival).format(
+                        "HH:mm"
+                    );
+
+                    return (
+                        <Row gutter={16}>
+                            <Col xs={24} sm={3}>
+                                <Text strong>{item.thread.number}</Text>
+                            </Col>
+                            <Col xs={20} sm={17}>
+                                <Text strong>
+                                    <Link to={`/thread/${item.thread.uid}`}>
+                                        {item.thread.title}
+                                    </Link>
+                                </Text>
+                                <div>{item.days}</div>
+                            </Col>
+                            <Col xs={2} sm={4}>
+                                {time}
+                            </Col>
+                        </Row>
+                    );
+                })}
+                renderItem={(item) => (
+                    <List.Item style={{ display: "block" }}>{item}</List.Item>
+                )}
             />
         </>
     );
