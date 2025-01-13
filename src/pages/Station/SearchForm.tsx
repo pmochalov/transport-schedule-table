@@ -10,7 +10,7 @@ import {
     RadioChangeEvent,
 } from "antd";
 
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 const dateFormat = "YYYY-MM-DD";
 
@@ -21,7 +21,7 @@ type Params = {
 
 type SearchFormProps = {
     params: Params;
-    handleChangeDate: (_date: any, dateString: string | string[]) => void;
+    handleChangeDate: (_date: Dayjs, dateString: string | string[]) => void;
     handleChangeEvent: (e: RadioChangeEvent) => void;
     handleSearch: () => void;
     loading: boolean;

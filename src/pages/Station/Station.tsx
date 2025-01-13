@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link, useParams } from "react-router-dom";
 import { RootState } from "../../store";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
     fetchSchedule,
@@ -30,8 +30,8 @@ const Station: React.FC = () => {
     };
 
     const handleChangeDate: DatePickerProps["onChange"] = (
-        _date,
-        dateString
+        _date: Dayjs,
+        dateString: string | string[]
     ) => {
         setSearchParams({ ...params, date: dateString });
     };
