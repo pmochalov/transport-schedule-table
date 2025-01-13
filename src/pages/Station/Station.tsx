@@ -40,7 +40,7 @@ const Station: React.FC = () => {
         dispatch(fetchSchedule({ ...params, stationId }));
     };
 
-    const title = `Расписание: &laquo;${data.station.title}&raquo; (
+    const title = `Расписание: "${data.station.title}" (
         ${data.station.station_type_name})`;
 
     React.useEffect(() => {
