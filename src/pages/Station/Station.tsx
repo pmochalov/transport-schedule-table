@@ -1,31 +1,19 @@
 import * as React from "react";
 import { Link, useParams } from "react-router-dom";
-import { RootState } from "../store";
+import { RootState } from "../../store";
 import dayjs from "dayjs";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
     fetchSchedule,
     resetScheduleState,
-} from "../slices/schedulescheduleSlice";
-import useStationParams from "../hooks/useStationParams";
+} from "../../slices/schedulescheduleSlice";
+import useStationParams from "../../hooks/useStationParams";
 
 import type { DatePickerProps } from "antd";
-import {
-    DatePicker,
-    List,
-    Radio,
-    RadioChangeEvent,
-    Button,
-    Row,
-    Col,
-    Card,
-    Spin,
-    Space,
-    Typography,
-} from "antd";
+import { List, RadioChangeEvent, Row, Col, Typography } from "antd";
+import { PageTitle } from "../../components/PageTitle";
+import { SearchForm } from "./SearchForm";
 const { Text } = Typography;
-
-const dateFormat = "YYYY-MM-DD";
 
 const Station: React.FC = () => {
     const { stationId } = useParams<string>();
@@ -52,6 +40,9 @@ const Station: React.FC = () => {
         dispatch(fetchSchedule({ ...params, stationId }));
     };
 
+    const title = `Расписание: &laquo;${data.station.title}&raquo; (
+        ${data.station.station_type_name})`;
+
     React.useEffect(() => {
         if (!stationId) {
             return;
@@ -70,58 +61,14 @@ const Station: React.FC = () => {
 
     return (
         <>
-            <h1>
-                Расписание: &laquo;{data.station.title}&raquo; (
-                {data.station.station_type_name})
-            </h1>
-            <Card>
-                <Row gutter={{ xs: 8, sm: 16 }}>
-                    <Col>
-                        <Radio.Group
-                            value={params.event}
-                            onChange={handleChangeEvent}
-                            size='large'
-                            disabled={loading}
-                        >
-                            <Radio.Button value='departure'>
-                                Отправление
-                            </Radio.Button>
-                            <Radio.Button value='arrival'>
-                                Прибытие
-                            </Radio.Button>
-                        </Radio.Group>
-                    </Col>
-                    <Col>
-                        <DatePicker
-                            onChange={handleChangeDate}
-                            size='large'
-                            placeholder='Дата'
-                            defaultValue={dayjs(params.date, dateFormat)}
-                            format={dateFormat}
-                            disabled={loading}
-                        />
-                    </Col>
-                    <Col>
-                        <Space>
-                            <Button
-                                onClick={handleSearch}
-                                disabled={loading}
-                                type='primary'
-                                size='large'
-                            >
-                                Найти
-                            </Button>
-
-                            {loading && (
-                                <span>
-                                    <Spin size='small' />
-                                </span>
-                            )}
-                        </Space>
-                    </Col>
-                </Row>
-            </Card>
-
+            <PageTitle title={title} />
+            <SearchForm
+                params={params}
+                handleChangeDate={handleChangeDate}
+                handleChangeEvent={handleChangeEvent}
+                handleSearch={handleSearch}
+                loading={loading}
+            />
             <List
                 bordered={true}
                 dataSource={data.schedule.map((item) => {

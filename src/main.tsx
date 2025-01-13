@@ -11,7 +11,7 @@ import {
     Route,
 } from "react-router-dom";
 
-import { Station } from "./pages/Station.tsx";
+import { Station } from "./pages/Station/Station.tsx";
 import { Thread } from "./pages/Thread.tsx";
 import { ErrorPage } from "./pages/ErrorPage.tsx";
 import { Home } from "./pages/Home.tsx";
