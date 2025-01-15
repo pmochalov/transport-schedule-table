@@ -25,6 +25,8 @@ export type Stop = {
     station: Station;
     arrival: string | null;
     departure: string | null;
+    stop_time: number | null;
+    duration: number
 }
 
 // Расписание

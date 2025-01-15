@@ -5,20 +5,20 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { RootState } from "../store";
 import { fetchThread, resetThreadState } from "../slices/threadSlice";
 
-import { Space, Table, Tag } from "antd";
+import { Table } from "antd";
 import type { TableProps } from "antd";
 import { Station, Stop } from "../types";
 
 type DataType = {
     key: string;
-} & Pick<Stop, "departure" | "arrival"> &
+} & Pick<Stop, "departure" | "arrival" | "stop_time" | "duration"> &
     Pick<Station, "title">;
 
 function getTableHeader(): TableProps<DataType>["columns"] {
     return [
         {
             title: "Станция",
-            dataIndex: "stationTitle",
+            dataIndex: "title",
             // key: "name",
             // render: (text) => <a>{text}</a>,
         },
@@ -30,6 +30,16 @@ function getTableHeader(): TableProps<DataType>["columns"] {
         {
             title: "Отправление",
             dataIndex: "departure",
+            // key: "address",
+        },
+        {
+            title: "Стоянка",
+            dataIndex: "stop_time",
+            // key: "address",
+        },
+        {
+            title: "Время в пути",
+            dataIndex: "duration",
             // key: "address",
         },
     ];
@@ -68,9 +78,11 @@ const Thread: React.FC = () => {
     const stops: DataType[] = data.stops.map((s: Stop, index: number) => {
         return {
             key: `${index}`,
-            stationTitle: s.station.title,
-            departure: s.departure ?? "",
-            arrival: s.arrival ?? "",
+            title: s.station.title,
+            departure: s.departure,
+            arrival: s.arrival,
+            duration: s.duration,
+            stop_time: s.stop_time,
         };
     });
 
@@ -80,7 +92,11 @@ const Thread: React.FC = () => {
                 №{data.number}, "{data.title}"
             </h1>
             <div>
-                <Table<DataType> columns={columns} dataSource={stops} />
+                <Table<DataType>
+                    columns={columns}
+                    dataSource={stops}
+                    pagination={false}
+                />
             </div>
         </>
     );
