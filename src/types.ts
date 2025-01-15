@@ -8,6 +8,7 @@ export type EventDate = null | string; // дата отправления/при
 //     date: EventDate;
 // }
 
+// Станция
 export type Station = {
     type: string;
     title: string;
@@ -19,10 +20,18 @@ export type Station = {
     transport_type: Transport;
 }
 
+// Остановка
+export type Stop = {
+    station: Station;
+    arrival: string | null;
+    departure: string | null;
+}
+
+// Расписание
 export type Thread = {
     title: string;
     uid: string;
     number: string;
     short_title: string;
-    stops: Station[]
+    stops: Stop[]
 }

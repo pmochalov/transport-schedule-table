@@ -5,6 +5,36 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { RootState } from "../store";
 import { fetchThread, resetThreadState } from "../slices/threadSlice";
 
+import { Space, Table, Tag } from "antd";
+import type { TableProps } from "antd";
+import { Station, Stop } from "../types";
+
+type DataType = {
+    key: string;
+} & Pick<Stop, "departure" | "arrival"> &
+    Pick<Station, "title">;
+
+function getTableHeader(): TableProps<DataType>["columns"] {
+    return [
+        {
+            title: "Станция",
+            dataIndex: "stationTitle",
+            // key: "name",
+            // render: (text) => <a>{text}</a>,
+        },
+        {
+            title: "Прибытие",
+            dataIndex: "arrival",
+            // key: "age",
+        },
+        {
+            title: "Отправление",
+            dataIndex: "departure",
+            // key: "address",
+        },
+    ];
+}
+
 const Thread: React.FC = () => {
     let { uid } = useParams();
 
@@ -13,6 +43,9 @@ const Thread: React.FC = () => {
     const { data, loading, error } = useAppSelector(
         (state: RootState) => state.thread
     );
+
+    // Заголовок(колонки таблицы)
+    const columns: TableProps<DataType>["columns"] = getTableHeader();
 
     React.useEffect(() => {
         if (uid) {
@@ -32,14 +65,22 @@ const Thread: React.FC = () => {
         return <div>Ошибка: {error}</div>;
     }
 
+    const stops: DataType[] = data.stops.map((s: Stop, index: number) => {
+        return {
+            key: `${index}`,
+            stationTitle: s.station.title,
+            departure: s.departure ?? "",
+            arrival: s.arrival ?? "",
+        };
+    });
+
     return (
         <>
-            <h1>Ветка {data.title}</h1>
+            <h1>
+                №{data.number}, "{data.title}"
+            </h1>
             <div>
-                <ul>
-                    <li>{data.number}</li>
-                    <li>Остановок: {data.stops.length}</li>
-                </ul>
+                <Table<DataType> columns={columns} dataSource={stops} />
             </div>
         </>
     );
