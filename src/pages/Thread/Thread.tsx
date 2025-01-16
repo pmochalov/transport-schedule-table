@@ -1,26 +1,66 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
-import { RootState } from "../store";
-import { fetchThread, resetThreadState } from "../slices/threadSlice";
+import { RootState } from "../../store";
+import { fetchThread, resetThreadState } from "../../slices/threadSlice";
 
 import { Table } from "antd";
 import type { TableProps } from "antd";
-import { Station, Stop } from "../types";
+import { Stop } from "../../types";
 
 import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration"; // ES 2015
+import duration from "dayjs/plugin/duration";
 
 dayjs.extend(duration);
 
-/* type DataType = {
-    key: string;
-} & Pick<Stop, "departure" | "arrival" | "stop_time" | "duration"> &
-    Pick<Station, "title">;
- */
+function formatDuration(seconds: number): string {
+    const durationObj = dayjs.duration(seconds, "seconds");
 
-type DataType = {
+    let result = "";
+
+    const days = Math.floor(durationObj.asDays());
+    if (days > 0) {
+        result += `${days} д `;
+    }
+
+    const hours = durationObj.hours();
+    if (hours > 0) {
+        result += `${hours} ч `;
+    }
+
+    const minutes = durationObj.minutes();
+    result += `${minutes} мин`;
+
+    return result;
+}
+
+function getTableHeader(): TableProps<TableDataType>["columns"] {
+    return [
+        {
+            title: "Станция",
+            dataIndex: "title",
+        },
+        {
+            title: "Прибытие",
+            dataIndex: "arrival",
+        },
+        {
+            title: "Отправление",
+            dataIndex: "departure",
+        },
+        {
+            title: "Стоянка",
+            dataIndex: "stop_time",
+        },
+        {
+            title: "Время в пути",
+            dataIndex: "duration",
+        },
+    ];
+}
+
+type TableDataType = {
     key: string;
     title: string;
     departure: string;
@@ -28,47 +68,6 @@ type DataType = {
     duration: number | string;
     stop_time: string;
 };
-
-function formatDuration(seconds: number): string {
-    const durationObj = dayjs.duration(seconds, "seconds");
-
-    const days = Math.floor(durationObj.asDays());
-    const hours = durationObj.hours();
-    const minutes = durationObj.minutes();
-
-    return `${days} д ${hours} ч ${minutes} мин`;
-}
-
-function getTableHeader(): TableProps<DataType>["columns"] {
-    return [
-        {
-            title: "Станция",
-            dataIndex: "title",
-            // key: "name",
-            // render: (text) => <a>{text}</a>,
-        },
-        {
-            title: "Прибытие",
-            dataIndex: "arrival",
-            // key: "age",
-        },
-        {
-            title: "Отправление",
-            dataIndex: "departure",
-            // key: "address",
-        },
-        {
-            title: "Стоянка",
-            dataIndex: "stop_time",
-            // key: "address",
-        },
-        {
-            title: "Время в пути",
-            dataIndex: "duration",
-            // key: "address",
-        },
-    ];
-}
 
 const Thread: React.FC = () => {
     let { uid } = useParams();
@@ -80,7 +79,7 @@ const Thread: React.FC = () => {
     );
 
     // Заголовок(колонки таблицы)
-    const columns: TableProps<DataType>["columns"] = getTableHeader();
+    const columns: TableProps<TableDataType>["columns"] = getTableHeader();
 
     React.useEffect(() => {
         if (uid) {
@@ -100,18 +99,22 @@ const Thread: React.FC = () => {
         return <div>Ошибка: {error}</div>;
     }
 
-    const stops: DataType[] = data.stops.map((s: Stop, index: number) => {
-        return {
-            key: `${index}`,
-            title: s.station.title,
-            departure: s.departure ? dayjs(s.departure).format("HH:mm") : "-",
-            arrival: s.arrival ? dayjs(s.arrival).format("HH:mm") : "-",
-            duration: s.duration > 0 ? formatDuration(s.duration) : "-",
-            stop_time: s.stop_time
-                ? `${Math.floor(s.stop_time / 60)} мин`
-                : "-",
-        };
-    });
+    const stopsData: TableDataType[] = data.stops.map(
+        (s: Stop, index: number) => {
+            return {
+                key: `${index}`,
+                title: s.station.title,
+                departure: s.departure
+                    ? dayjs(s.departure).format("HH:mm")
+                    : "—",
+                arrival: s.arrival ? dayjs(s.arrival).format("HH:mm") : "—",
+                duration: s.duration > 0 ? formatDuration(s.duration) : "—",
+                stop_time: s.stop_time
+                    ? `${Math.floor(s.stop_time / 60)} мин`
+                    : "—",
+            };
+        }
+    );
 
     return (
         <>
@@ -120,9 +123,9 @@ const Thread: React.FC = () => {
             </h1>
             <p>{data.days}</p>
             <div>
-                <Table<DataType>
+                <Table<TableDataType>
                     columns={columns}
-                    dataSource={stops}
+                    dataSource={stopsData}
                     pagination={false}
                 />
             </div>

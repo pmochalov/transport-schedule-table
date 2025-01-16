@@ -12,9 +12,9 @@ import {
 } from "react-router-dom";
 
 import { Station } from "./pages/Station/Station.tsx";
-import { Thread } from "./pages/Thread.tsx";
-import { ErrorPage } from "./pages/ErrorPage.tsx";
-import { Home } from "./pages/Home.tsx";
+import { Thread } from "./pages/Thread/Thread.tsx";
+import { ErrorPage } from "./pages/ErrorPage/ErrorPage.tsx";
+import { Home } from "./pages/Home/Home.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
