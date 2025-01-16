@@ -18,7 +18,8 @@ const initialState: Initial = {
         uid: "",
         number: "",
         short_title: "",
-        stops: []
+        stops: [],
+        days: ""
     }
 };
 

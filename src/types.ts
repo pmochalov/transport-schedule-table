@@ -35,5 +35,6 @@ export type Thread = {
     uid: string;
     number: string;
     short_title: string;
-    stops: Stop[]
+    stops: Stop[];
+    days: string | null
 }
