@@ -1,4 +1,4 @@
-export type Transport = "all" | "plane" | "train" | "bus";
+export type Transport = "plane" | "train" | "bus";
 
 export type Event = "arrival" | "departure";
 export type EventDate = null | string; // дата отправления/прибытия
