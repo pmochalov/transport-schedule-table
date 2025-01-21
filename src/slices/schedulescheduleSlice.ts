@@ -42,7 +42,7 @@ const initialState: Initial = {
             code: "",
             station_type: "",
             station_type_name: "",
-            transport_type: "all",
+            transport_type: "train",
         },
         schedule: [] // Обратите внимание, что schedule должен быть пустым массивом ThreadItem[]
     }

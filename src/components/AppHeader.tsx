@@ -9,7 +9,6 @@ const headerStyle: React.CSSProperties = {
     fontSize: "clamp(16px, 2rem, 32px)",
     lineHeight: "clamp(18px, 2rem, 40px)",
     textAlign: "center",
-    // background: "linear-gradient(to right, #ff9966, #ff5e62)",
     background: "linear-gradient(to right, #f2709c, #ff9472)",
     fontWeight: "bold",
     display: "flex",

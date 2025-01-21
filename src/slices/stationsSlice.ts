@@ -23,7 +23,8 @@ const initialState: Initial = {
 export const fetchStations = createAsyncThunk<Stations, {}, {}>(
     'stations/fetchStations',
     async () => {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}nearest_stations`, {
+        const apiUrl = `${import.meta.env.VITE_API_URL}/`;
+        const response = await axios.post(`${apiUrl}nearest_stations`, {
             station_types: "station,airport,bus_station"
         });
 

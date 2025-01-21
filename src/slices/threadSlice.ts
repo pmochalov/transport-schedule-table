@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 import { Thread } from '../types';
-import { Station } from '../types';
-
 
 type Initial = {
     loading: boolean;

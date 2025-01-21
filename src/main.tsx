@@ -23,7 +23,10 @@ const router = createBrowserRouter(
             <Route path='station/:stationId' element={<Station />} />
             <Route path='thread/:uid' element={<Thread />} />
         </Route>
-    )
+    ),
+    {
+        basename: "/projects/rasp/",
+    }
 );
 
 createRoot(document.getElementById("root")!).render(
