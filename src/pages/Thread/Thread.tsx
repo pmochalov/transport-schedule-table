@@ -2,12 +2,13 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
+import { Stop } from "../../types";
+
 import { RootState } from "../../store";
 import { fetchThread, resetThreadState } from "../../slices/threadSlice";
 
 import { Table } from "antd";
 import type { TableProps } from "antd";
-import { Stop } from "../../types";
 
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
@@ -78,7 +79,6 @@ const Thread: React.FC = () => {
         (state: RootState) => state.thread
     );
 
-    // Заголовок(колонки таблицы)
     const columns: TableProps<TableDataType>["columns"] = getTableHeader();
 
     React.useEffect(() => {
