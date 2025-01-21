@@ -7,11 +7,12 @@ import { Stop } from "../../types";
 import { RootState } from "../../store";
 import { fetchThread, resetThreadState } from "../../slices/threadSlice";
 
-import { Table } from "antd";
+import { Flex, Skeleton, Table } from "antd";
 import type { TableProps } from "antd";
 
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import { PageTitle } from "../../components/PageTitle";
 
 dayjs.extend(duration);
 
@@ -81,24 +82,6 @@ const Thread: React.FC = () => {
 
     const columns: TableProps<TableDataType>["columns"] = getTableHeader();
 
-    React.useEffect(() => {
-        if (uid) {
-            dispatch(fetchThread({ uid }));
-        }
-
-        return () => {
-            dispatch(resetThreadState());
-        };
-    }, [dispatch, uid]);
-
-    if (loading) {
-        return <div>Загрузка...</div>;
-    }
-
-    if (error) {
-        return <div>Ошибка: {error}</div>;
-    }
-
     const stopsData: TableDataType[] = data.stops.map(
         (s: Stop, index: number) => {
             return {
@@ -116,20 +99,36 @@ const Thread: React.FC = () => {
         }
     );
 
+    React.useEffect(() => {
+        if (uid) {
+            dispatch(fetchThread({ uid }));
+        }
+
+        return () => {
+            dispatch(resetThreadState());
+        };
+    }, [dispatch, uid]);
+
+    if (error) {
+        return <div>Ошибка: {error}</div>;
+    }
+
     return (
-        <>
-            <h1>
-                №{data.number}, "{data.title}"
-            </h1>
-            <p>{data.days}</p>
-            <div>
+        <Flex gap='middle' vertical>
+            <PageTitle
+                title={`${data.number}, ${data.title}`}
+                loading={loading}
+            />
+            <Skeleton active loading={loading} paragraph={{ rows: 12 }}>
+                <p>{data.days}</p>
+
                 <Table<TableDataType>
                     columns={columns}
                     dataSource={stopsData}
                     pagination={false}
                 />
-            </div>
-        </>
+            </Skeleton>
+        </Flex>
     );
 };
 

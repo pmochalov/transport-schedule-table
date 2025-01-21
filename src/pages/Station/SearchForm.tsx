@@ -8,6 +8,7 @@ import {
     Card,
     Button,
     RadioChangeEvent,
+    Skeleton,
 } from "antd";
 
 import dayjs, { Dayjs } from "dayjs";
@@ -27,6 +28,8 @@ type SearchFormProps = {
     loading: boolean;
 };
 
+const cardStyle = { border: "#4096FF 1px dashed" };
+
 const SearchForm: React.FC<SearchFormProps> = ({
     params,
     handleChangeDate,
@@ -34,8 +37,20 @@ const SearchForm: React.FC<SearchFormProps> = ({
     handleSearch,
     loading,
 }) => {
+    if (loading) {
+        return (
+            <Skeleton.Button
+                size='large'
+                shape='default'
+                style={{ height: 96 }}
+                block={true}
+                active
+            />
+        );
+    }
+
     return (
-        <Card>
+        <Card style={cardStyle}>
             <Row gutter={{ xs: 8, sm: 16 }}>
                 <Col>
                     <Radio.Group

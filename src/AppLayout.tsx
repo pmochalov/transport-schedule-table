@@ -1,36 +1,36 @@
 import React from "react";
-import { Layout, Col, Row } from "antd";
-import { Header } from "./components/Header";
+import { AppHeader } from "./components/AppHeader";
 import { Outlet } from "react-router-dom";
 
+import { Layout } from "antd";
+import { AppFooter } from "./components/AppFooter";
 const { Content } = Layout;
 
 const layoutStyle = {
-    overflow: "hidden",
-    height: "100%",
     minHeight: "100%",
+    overflow: "hidden",
+    padding: "32px 0",
 };
 
 const contentStyle: React.CSSProperties = {
-    width: "1200px",
+    width: "clamp(320px, 50vw, 1200px)",
+    maxWidth: 1200,
     margin: "0 auto",
-    padding: "32px 0",
+    padding: "16px",
     backgroundColor: "#fff",
+    display: "grid",
+    gridAutoRows: "auto 1fr auto",
+    gap: 32,
+    borderRadius: 16,
 };
 
-const AppLayout: React.FC = () => {
-    return (
-        <Layout style={layoutStyle}>
-            <Header />
-            <Content style={contentStyle}>
-                <Row>
-                    <Col span={24}>
-                        <Outlet />
-                    </Col>
-                </Row>
-            </Content>
-        </Layout>
-    );
-};
-
+const AppLayout: React.FC = () => (
+    <Layout style={layoutStyle}>
+        <Content style={contentStyle}>
+            <AppHeader />
+            <Outlet />
+            <AppFooter />
+        </Content>
+    </Layout>
+);
 export { AppLayout };

@@ -2,11 +2,10 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from "../../store";
 import { fetchStations, resetStationsState } from "../../slices/stationsSlice";
-import { Link } from "react-router-dom";
 
 import { Row, Col } from "antd";
-import { Station } from "../../types";
-import { Transport } from "../../types";
+import { ListOfTransport } from "./ListOfTransport";
+import { TransportIcon } from "../../components/TransportIcon";
 
 const Home: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -23,69 +22,52 @@ const Home: React.FC = () => {
         };
     }, [dispatch]);
 
-    if (loading) {
-        return <div>Загрузка...</div>;
-    }
-
     if (error) {
         return <div>Ошибка: {error}</div>;
     }
 
-    function filterStations(stations: Station[], type: Transport) {
-        return stations.filter((s: Station) => {
-            return type === s.transport_type;
-        });
-    }
-
     return (
-        <>
-            <h1>Расписание вокзалов Архангельска</h1>
+        <div>
             <Row gutter={16}>
                 <Col className='gutter-row' span={8}>
-                    <h2>Поезд</h2>
-                    <ul>
-                        {filterStations(data.stations, "train").map(
-                            (station) => (
-                                <li key={station.code}>
-                                    <Link to={`/station/${station.code}`}>
-                                        {station.title} (
-                                        {station.station_type_name})
-                                    </Link>
-                                </li>
-                            )
-                        )}
-                    </ul>
+                    <ListOfTransport
+                        transport='train'
+                        stations={data.stations}
+                        title={
+                            <>
+                                Поезд <TransportIcon type={"train"} />
+                            </>
+                        }
+                        loading={loading}
+                    />
                 </Col>
                 <Col className='gutter-row' span={8}>
-                    <h2>Самолёт</h2>
-                    <ul>
-                        {filterStations(data.stations, "plane").map(
-                            (station) => (
-                                <li key={station.code}>
-                                    <Link to={`/station/${station.code}`}>
-                                        {station.title} (
-                                        {station.station_type_name})
-                                    </Link>
-                                </li>
-                            )
-                        )}
-                    </ul>
+                    <ListOfTransport
+                        transport='plane'
+                        stations={data.stations}
+                        title={
+                            <>
+                                Самолет <TransportIcon type={"plane"} />
+                            </>
+                        }
+                        loading={loading}
+                    />
                 </Col>
                 <Col className='gutter-row' span={8}>
-                    <h2>Автобус</h2>
-                    <ul>
-                        {filterStations(data.stations, "bus").map((station) => (
-                            <li key={station.code}>
-                                <Link to={`/station/${station.code}`}>
-                                    {station.title} ({station.station_type_name}
-                                    )
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
+                    {" "}
+                    <ListOfTransport
+                        transport='bus'
+                        stations={data.stations}
+                        title={
+                            <>
+                                Автобус <TransportIcon type={"bus"} />
+                            </>
+                        }
+                        loading={loading}
+                    />
                 </Col>
             </Row>
-        </>
+        </div>
     );
 };
 
